@@ -1,5 +1,8 @@
 #!/bin/bash
+set -e
 
-echo "Deploy MongoDB"
+echo "[INFO] Deploy MongoDB..."
 
 kubectl apply -f apps/mongodb/
+
+echo "[OK] Aplicações implantadas"
