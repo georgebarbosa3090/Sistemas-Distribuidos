@@ -231,7 +231,7 @@ Este documento descreve o processo completo de instalação e execução de um c
 
 ---
 
-# ⚙️ 1. Objetivo
+## ⚙️ 1. Objetivo
 
 Implantar um ambiente de orquestração de containers com:
 
@@ -242,7 +242,7 @@ Implantar um ambiente de orquestração de containers com:
 
 ---
 
-# ⚙️ 2. Pré-requisitos
+## ⚙️ 2. Pré-requisitos
 
 - Ubuntu 20.04+
 - Usuário com sudo
@@ -253,62 +253,13 @@ Implantar um ambiente de orquestração de containers com:
 
 ---
 
-# ⚙️ 3. Instalação Automatizada (Scripts)
+## ⚙️ 3. Instalação Automatizada (Scripts)
 
-## 🔹 3.1 Atualizar sistema
-
-```bash
-sudo apt update -y && sudo apt upgrade -y
-
-Perfeito — vou te entregar isso **pronto para subir no GitHub em Markdown**, já com:
-
-* ✅ scripts corrigidos (idempotência, segurança, boas práticas)
-* ✅ tutorial profissional
-* ✅ versão manual didática
-* ✅ padronização DevOps
-
----
-
-# 📄 📘 ARQUIVO: `INSTALL.md`
-
-````markdown
-# 🚀 Guia de Instalação do Cluster Kubernetes (k3s)
-
-Este documento descreve o processo completo de instalação e execução de um cluster baseado em Kubernetes utilizando k3s, incluindo automação e execução manual para fins didáticos.
-
----
-
-# ⚙️ 1. Objetivo
-
-Implantar um ambiente de orquestração de containers com:
-
-- Kubernetes (k3s)
-- Deploy automatizado
-- Monitoramento básico
-- Persistência de dados
-
----
-
-# ⚙️ 2. Pré-requisitos
-
-- Ubuntu 20.04+
-- Usuário com sudo
-- Acesso à internet
-- Mínimo:
-  - 2 CPUs
-  - 4GB RAM
-
----
-
-# ⚙️ 3. Instalação Automatizada (Scripts)
-
-## 🔹 3.1 Atualizar sistema
+### 🔹 3.1 Atualizar sistema
 
 ```bash
 sudo apt update -y && sudo apt upgrade -y
-````
-
----
+```
 
 ## 🔹 3.2 Instalar dependências
 
@@ -382,13 +333,13 @@ kubectl get svc -A
 
 ---
 
-# 🛠️ 4. Versão Manual (Didática)
+## 🛠️ 4. Versão Manual (Didática)
 
 Este modo permite compreender o funcionamento interno do Kubernetes sem automação.
 
 ---
 
-## 🔹 4.1 Instalar k3s manualmente
+### 🔹 4.1 Instalar k3s manualmente
 
 ```bash
 curl -sfL https://get.k3s.io | sh -
@@ -396,7 +347,7 @@ curl -sfL https://get.k3s.io | sh -
 
 ---
 
-## 🔹 4.2 Configurar kubectl
+### 🔹 4.2 Configurar kubectl
 
 ```bash
 mkdir -p ~/.kube
@@ -406,7 +357,7 @@ sudo chown $USER:$USER ~/.kube/config
 
 ---
 
-## 🔹 4.3 Criar namespace
+### 🔹 4.3 Criar namespace
 
 ```bash
 kubectl create namespace applications
@@ -414,7 +365,7 @@ kubectl create namespace applications
 
 ---
 
-## 🔹 4.4 Criar deployment
+### 🔹 4.4 Criar deployment
 
 ```bash
 kubectl create deployment nginx --image=nginx -n applications
@@ -422,7 +373,7 @@ kubectl create deployment nginx --image=nginx -n applications
 
 ---
 
-## 🔹 4.5 Escalar aplicação
+### 🔹 4.5 Escalar aplicação
 
 ```bash
 kubectl scale deployment nginx --replicas=3 -n applications
@@ -430,7 +381,7 @@ kubectl scale deployment nginx --replicas=3 -n applications
 
 ---
 
-## 🔹 4.6 Expor serviço
+### 🔹 4.6 Expor serviço
 
 ```bash
 kubectl expose deployment nginx \
@@ -441,16 +392,16 @@ kubectl expose deployment nginx \
 
 ---
 
-## 🔹 4.7 Verificar recursos
+### 🔹 4.7 Verificar recursos
 
 ```bash
 kubectl get all -n applications
 ```
 
 ---
-# 🔧 SCRIPTS CORRIGIDOS (VERSÕES PROFISSIONAIS)
+# 🔧 SCRIPTS
 
-## 📄 `bootstrap/01-install-docker.sh`
+### 📄 `bootstrap/01-install-docker.sh`
 
 ```bash
 #!/bin/bash
@@ -482,7 +433,7 @@ echo "[OK] Docker instalado"
 
 ---
 
-## 📄 `bootstrap/02-install-k3s-master.sh`
+### 📄 `bootstrap/02-install-k3s-master.sh`
 
 ```bash
 #!/bin/bash
@@ -505,7 +456,7 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 
 ---
 
-## 📄 `bootstrap/03-install-k3s-worker.sh`
+### 📄 `bootstrap/03-install-k3s-worker.sh`
 
 ```bash
 #!/bin/bash
@@ -529,7 +480,7 @@ echo "[OK] Worker conectado"
 
 ---
 
-## 📄 `bootstrap/04-install-helm.sh`
+### 📄 `bootstrap/04-install-helm.sh`
 
 ```bash
 #!/bin/bash
@@ -546,7 +497,7 @@ echo "[OK] Helm instalado"
 
 ---
 
-## 📄 `scripts/deploy-cluster.sh`
+### 📄 `scripts/deploy-cluster.sh`
 
 ```bash
 #!/bin/bash
@@ -565,7 +516,7 @@ echo "[OK] Cluster base configurado"
 
 ---
 
-## 📄 `scripts/deploy-infra.sh`
+### 📄 `scripts/deploy-infra.sh`
 
 ```bash
 #!/bin/bash
@@ -580,7 +531,7 @@ echo "[OK] Infraestrutura implantada"
 
 ---
 
-## 📄 `scripts/deploy-apps.sh`
+### 📄 `scripts/deploy-apps.sh`
 
 ```bash
 #!/bin/bash
