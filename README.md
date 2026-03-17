@@ -344,6 +344,235 @@ helm version
 ```
 ---
 
+## 🐄 Instalação do Rancher no Cluster k3s
+
+O Rancher é uma plataforma de gerenciamento de clusters Kubernetes que permite:
+
+- Interface gráfica para administração
+- Gestão de múltiplos clusters
+- Controle de usuários e permissões
+- Deploy simplificado de aplicações
+
+---
+
+### ⚙️ 1. Pré-requisitos
+
+Antes de instalar o Rancher:
+
+- Cluster k3s funcional
+- kubectl configurado
+- Helm instalado
+
+Verifique:
+
+```bash
+kubectl get nodes
+helm version
+````
+
+---
+
+### ⚙️ 2. Instalação do Cert-Manager
+
+O Rancher requer certificados TLS.
+
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+
+kubectl create namespace cert-manager
+
+kubectl wait --for=condition=available deployment/cert-manager -n cert-manager --timeout=120s
+```
+
+---
+
+### ⚙️ 3. Adicionar repositório do Rancher
+
+```bash
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+
+helm repo update
+```
+
+---
+
+### ⚙️ 4. Criar namespace
+
+```bash
+kubectl create namespace cattle-system
+```
+
+---
+
+### ⚙️ 5. Instalar Rancher
+
+```bash
+helm upgrade --install rancher rancher-stable/rancher \
+--namespace cattle-system \
+--set hostname=rancher.localhost \
+--set replicas=1
+```
+
+---
+
+### ⚙️ 6. Verificar instalação
+
+```bash
+kubectl -n cattle-system rollout status deploy/rancher
+```
+
+---
+
+### ⚙️ 7. Acessar Rancher
+
+Obter IP:
+
+```bash
+kubectl get svc -n cattle-system
+```
+
+Acesse:
+
+```
+http://<NODE-IP>
+```
+
+---
+
+### ⚙️ 8. Obter senha inicial
+
+```bash
+kubectl get secret --namespace cattle-system bootstrap-secret \
+-o go-template='{{.data.bootstrapPassword|base64decode}}'
+```
+
+---
+
+### 🛠️ 9. Versão Manual (Didática)
+
+## Criar namespace
+
+```bash
+kubectl create namespace cattle-system
+```
+
+### Instalar via Helm
+
+```bash
+helm install rancher rancher-stable/rancher \
+--namespace cattle-system \
+--set hostname=rancher.localhost
+```
+
+---
+
+## 📌 10. Finalidade
+
+O Rancher permite transformar este cluster em:
+
+* Plataforma institucional
+* Ambiente de ensino DevOps
+* Laboratório de computação distribuída
+
+````
+
+---
+
+# 🔧 SCRIPT PROFISSIONAL DO RANCHER
+
+## 📄 `infrastructure/rancher/install-rancher.sh`
+
+```bash
+#!/bin/bash
+set -e
+
+echo "[INFO] Instalando Cert-Manager..."
+
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+
+kubectl create namespace cert-manager || true
+
+echo "[INFO] Aguardando Cert-Manager..."
+
+kubectl wait --for=condition=available deployment/cert-manager \
+-n cert-manager --timeout=180s
+
+echo "[INFO] Adicionando repositório Rancher..."
+
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable || true
+helm repo update
+
+echo "[INFO] Criando namespace cattle-system..."
+
+kubectl create namespace cattle-system || true
+
+echo "[INFO] Instalando Rancher..."
+
+helm upgrade --install rancher rancher-stable/rancher \
+--namespace cattle-system \
+--set hostname=rancher.localhost \
+--set replicas=1
+
+echo "[INFO] Aguardando Rancher..."
+
+kubectl -n cattle-system rollout status deploy/rancher
+
+echo "[OK] Rancher instalado com sucesso"
+````
+
+---
+
+## 🔧 ATUALIZAÇÃO DO SCRIPT DE INFRA
+
+### 📄 `scripts/deploy-infra.sh` (ATUALIZADO)
+
+```bash
+#!/bin/bash
+set -e
+
+echo "[INFO] Instalando Rancher..."
+bash infrastructure/rancher/install-rancher.sh
+
+echo "[INFO] Instalando monitoramento..."
+kubectl apply -f infrastructure/monitoring/
+
+echo "[OK] Infraestrutura completa"
+```
+
+---
+
+# 🧠 OBSERVAÇÕES IMPORTANTES
+
+## ⚠️ Sobre acesso local
+
+`rancher.localhost` pode não funcionar direto.
+
+👉 Alternativas:
+
+### 1. Editar hosts
+
+```bash
+sudo nano /etc/hosts
+```
+
+Adicionar:
+
+```
+SEU_IP rancher.localhost
+```
+
+---
+
+### 2. Usar NodePort temporário
+
+```bash
+kubectl expose deployment rancher \
+-n cattle-system \
+--type=NodePort \
+--port=80
+```
+
+---
 ## 📄 Licença
 
 Este projeto está sob a licença MIT.
