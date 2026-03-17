@@ -1,5 +1,8 @@
 #!/bin/bash
+set -e
 
-echo "Instalando monitoramento"
+echo "[INFO] Instalando monitoramento..."
 
-kubectl apply -f infra/monitoramento/
+kubectl apply -f infrastructure/monitoring/
+
+echo "[OK] Infraestrutura implantada"
