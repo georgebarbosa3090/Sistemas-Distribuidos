@@ -1,0 +1,10 @@
+chmod +x bootstrap/*.sh
+chmod +x scripts/*.sh
+
+./bootstrap/01-install-docker.sh
+./bootstrap/02-install-k3s-master.sh
+./bootstrap/04-install-helm.sh
+
+./scripts/deploy-cluster.sh
+./scripts/deploy-infra.sh
+./scripts/deploy-apps.sh
