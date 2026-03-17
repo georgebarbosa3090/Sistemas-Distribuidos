@@ -224,9 +224,8 @@ MONGO_URL=mongodb://mongo:27017/app
 4. Abra um Pull Request
 
 ---
-## 🚀📂 Projeto Sistema Distribuidos
 
-# 🚀 Guia de Instalação do Cluster Kubernetes (k3s)
+# 🚀 📂 Projeto Sistema Distribuidos - Guia de Instalação do Cluster Kubernetes (k3s)
 
 Este documento descreve o processo completo de instalação e execução de um cluster baseado em Kubernetes utilizando k3s, incluindo automação e execução manual para fins didáticos.
 
