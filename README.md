@@ -224,6 +224,43 @@ MONGO_URL=mongodb://mongo:27017/app
 4. Abra um Pull Request
 
 ---
+## 🚀📂 Projeto Sistema Distribuidos
+
+# 🚀 Guia de Instalação do Cluster Kubernetes (k3s)
+
+Este documento descreve o processo completo de instalação e execução de um cluster baseado em Kubernetes utilizando k3s, incluindo automação e execução manual para fins didáticos.
+
+---
+
+# ⚙️ 1. Objetivo
+
+Implantar um ambiente de orquestração de containers com:
+
+- Kubernetes (k3s)
+- Deploy automatizado
+- Monitoramento básico
+- Persistência de dados
+
+---
+
+# ⚙️ 2. Pré-requisitos
+
+- Ubuntu 20.04+
+- Usuário com sudo
+- Acesso à internet
+- Mínimo:
+  - 2 CPUs
+  - 4GB RAM
+
+---
+
+# ⚙️ 3. Instalação Automatizada (Scripts)
+
+## 🔹 3.1 Atualizar sistema
+
+```bash
+sudo apt update -y && sudo apt upgrade -y
+
 
 ## 📄 Licença
 
