@@ -317,6 +317,31 @@ kubectl apply -f apps/mongodb/
 echo "[OK] Aplicações implantadas"
 ```
 
+## 🐄 Instalação do Rancher no Cluster k3s
+
+O Rancher é uma plataforma de gerenciamento de clusters Kubernetes que permite:
+
+- Interface gráfica para administração
+- Gestão de múltiplos clusters
+- Controle de usuários e permissões
+- Deploy simplificado de aplicações
+
+---
+
+## ⚙️ 1. Pré-requisitos
+
+Antes de instalar o Rancher:
+
+- Cluster k3s funcional
+- kubectl configurado
+- Helm instalado
+
+Verifique:
+
+```bash
+kubectl get nodes
+helm version
+```
 ---
 
 ## 📄 Licença
