@@ -1,19 +1,16 @@
 #!/bin/bash
+set -e
 
-echo "Instalando K3S MASTER"
+echo "[INFO] Instalando K3s (MASTER)..."
 
 curl -sfL https://get.k3s.io | sh -
-
-echo "Configurando kubectl"
 
 mkdir -p $HOME/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/config
 sudo chown $USER:$USER $HOME/.kube/config
 
-echo "Cluster criado"
-
+echo "[INFO] Verificando cluster..."
 kubectl get nodes
 
-echo "Token cluster"
-
+echo "[INFO] Token do cluster:"
 sudo cat /var/lib/rancher/k3s/server/node-token
